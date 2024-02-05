@@ -2,6 +2,10 @@ package com.example.chatservice.common.cache
 
 import com.example.chatservice.common.function.logger
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
@@ -24,7 +28,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 class CacheConfig(
     private val redisProperties: RedisProperties,
-    private val objectMapper: ObjectMapper
 ) :
     JCacheConfigurerSupport() {
 
@@ -33,7 +36,7 @@ class CacheConfig(
         return RedisTemplate<String, Any>().apply {
             this.connectionFactory = redisConnectionFactory()
             this.keySerializer = StringRedisSerializer()
-            this.valueSerializer = GenericJackson2JsonRedisSerializer(objectMapper)
+            this.valueSerializer = GenericJackson2JsonRedisSerializer(objectMapper())
         }
     }
 
@@ -52,7 +55,7 @@ class CacheConfig(
             .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()))
             .serializeValuesWith(
                 RedisSerializationContext.SerializationPair.fromSerializer(
-                    GenericJackson2JsonRedisSerializer(objectMapper)
+                    GenericJackson2JsonRedisSerializer(objectMapper())
                 )
             )
 
@@ -63,9 +66,22 @@ class CacheConfig(
 
     @Bean
     override fun cacheResolver(): CacheResolver {
-        val cacheResolver: ReturnTypeCacheResolver = ReturnTypeCacheResolver(cacheManager())
+        val cacheResolver: ReturnTypeCacheResolver = ReturnTypeCacheResolver(cacheManager(), objectMapper())
         cacheResolver.cacheManager = cacheManager()
         return cacheResolver
+    }
+
+    fun objectMapper(): ObjectMapper {
+        val polymorphicTypeValidator = BasicPolymorphicTypeValidator.builder()
+            .allowIfSubType(Any::class.java)
+            .build()
+
+        return JsonMapper.builder()
+            .polymorphicTypeValidator(polymorphicTypeValidator)
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .addModule(JavaTimeModule())
+            .activateDefaultTyping(polymorphicTypeValidator, ObjectMapper.DefaultTyping.NON_FINAL)
+            .build()
     }
 
 }

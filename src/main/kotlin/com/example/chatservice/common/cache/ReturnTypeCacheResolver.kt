@@ -10,14 +10,9 @@ import org.springframework.cache.interceptor.SimpleCacheResolver
 import org.springframework.data.redis.cache.RedisCache
 
 class ReturnTypeCacheResolver(
-    cacheManager: CacheManager
+    private val cacheManager: CacheManager,
+    private val objectMapper: ObjectMapper
 ) : SimpleCacheResolver(cacheManager) {
-    private fun objectMapper(): ObjectMapper {
-        val objectMapper = ObjectMapper()
-        objectMapper.registerModule(JavaTimeModule())
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        return objectMapper
-    }
 
     override fun resolveCaches(context: CacheOperationInvocationContext<*>): MutableCollection<out Cache> {
         val cacheNames = getCacheNames(context)
@@ -42,7 +37,7 @@ class ReturnTypeCacheResolver(
                 cache.name,
                 cache.nativeCache,
                 cache.cacheConfiguration,
-                objectMapper(),
+                objectMapper,
                 context.method.returnType
             )
         }
