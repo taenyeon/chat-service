@@ -1,0 +1,17 @@
+POST http://localhost:8080/api/chat
+Content-Type: application/json
+access_token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzA3MTE1MjM2LCJleHAiOjE3MDcxMTcwMzZ9.DBlb_gLTItlpyklodDXxZVR50W0NnJjR4nGOgrOYTFnooHQZv1j1t5RvHhn33R9doMQsYokJqL-ypukzGYN8TA
+
+{
+  "roomName": "testRoom"
+}
+
+
+###
+POST http://localhost:8080/api/user/login
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "test"
+}

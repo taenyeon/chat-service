@@ -4,12 +4,8 @@ import com.example.chatservice.api.chat.domain.entity.ChatMember
 import com.example.chatservice.api.chat.domain.entity.ChatRoom
 import com.example.chatservice.api.chat.repository.ChatMemberRepository
 import com.example.chatservice.api.chat.repository.ChatRoomRepository
-import com.example.chatservice.api.chat.repository.support.ChatMemberSupportImpl
 import com.example.chatservice.api.chat.repository.support.ChatRoomSupportImpl
-import com.example.chatservice.api.chat.repository.support.interfaces.ChatMemberSupport
-import com.example.chatservice.api.chat.repository.support.interfaces.ChatRoomSupport
 import com.example.chatservice.common.exception.ResponseException
-import com.example.chatservice.common.function.logger
 import com.example.chatservice.common.http.constant.ResponseCode
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

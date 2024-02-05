@@ -10,15 +10,16 @@ import java.time.LocalDateTime
 
 @Document(collation = "message")
 class ChatMessage(
-    @MongoId
-    var _id: String?,
-    var roomId: String?,
-    var memberId: Long?,
-    var payload: String?,
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    var issuedDateTime: LocalDateTime
-
 ) {
+    @MongoId
+    var _id: String? = null
+    var roomId: String? = null
+    var memberId: Long? = null
+    var payload: String? = null
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    var issuedDateTime: LocalDateTime = LocalDateTime.now()
+
     override fun toString() = kotlinToString(properties = toStringProperties)
     override fun equals(other: Any?) = kotlinEquals(other = other, properties = equalsAndHashCodeProperties)
     override fun hashCode() = kotlinHashCode(properties = equalsAndHashCodeProperties)

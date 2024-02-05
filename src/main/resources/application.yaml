@@ -30,3 +30,7 @@ spring:
       host: localhost
       port: 27017
       database: test
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: chat-service

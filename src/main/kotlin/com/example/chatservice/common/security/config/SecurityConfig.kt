@@ -43,6 +43,7 @@ class SecurityConfig(private val jwtAuthenticationProvider: JwtAuthenticationPro
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration: CorsConfiguration = CorsConfiguration()
         corsConfiguration.addAllowedOriginPattern("*")
+        corsConfiguration.allowCredentials = true
         corsConfiguration.allowedMethods = listOf("HEAD", "GET", "POST", "PUT", "DELETE")
         corsConfiguration.addAllowedHeader("*")
         corsConfiguration.maxAge = 3600
