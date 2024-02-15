@@ -2,10 +2,12 @@ package com.example.chatservice.common.message.kafka
 
 import com.example.chatservice.api.chat.domain.entity.ChatMessage
 import com.example.chatservice.api.chat.service.ChatMemberCacheService
-import com.example.chatservice.api.chat.service.ChatMessageService
 import com.example.chatservice.common.function.logger
 import com.example.chatservice.common.message.principal.SessionRepository
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.messaging.MessageHeaders
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor
+import org.springframework.messaging.simp.SimpMessageType
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
 
@@ -25,7 +27,11 @@ class Consumer(
         members.forEach { member ->
             val sessionId = sessionRepository.select(member.id!!)
             log.info("[STOMP] SEND MESSAGE - SESSION-ID : $sessionId")
-            if (sessionId != null) template.convertAndSendToUser(sessionId, "/sub/chat", chatMessage)
+            if (sessionId != null) template.convertAndSend(
+                "/sub/chat/$sessionId",
+                chatMessage,
+            )
         }
     }
+
 }
