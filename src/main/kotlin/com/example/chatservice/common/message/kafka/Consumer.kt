@@ -26,7 +26,7 @@ class Consumer(
         // todo async 로 할지?
         members.forEach { member ->
             val sessionId = sessionRepository.select(member.id!!)
-            log.info("[STOMP] SEND MESSAGE - SESSION-ID : $sessionId")
+            log.info("[STOMP] SEND MESSAGE - id : ${member.id}  SESSION-ID : $sessionId")
             if (sessionId != null) template.convertAndSend(
                 "/sub/chat/$sessionId",
                 chatMessage,

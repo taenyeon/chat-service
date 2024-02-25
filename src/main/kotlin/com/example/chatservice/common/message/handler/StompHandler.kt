@@ -29,11 +29,16 @@ class StompHandler(
         val sessionId = accessor.user?.name
         when (accessor.command) {
             StompCommand.CONNECT -> {
-                log.info("ACCESS_TOKEN : $accessToken")
                 accessToken ?: throw ResponseException(ResponseCode.INVALID_TOKEN)
                 val userId = jwtTokenProvider.parseIdFromJWT(accessToken)
                 sessionRepository.enter(userId, sessionId.toString())
-                log.info("[STOMP] RECEIVE MESSAGE - COMMAND : ${accessor.command}, USER-ID : $userId, SESSION-ID : $sessionId")
+                log.info(
+                    "[STOMP] RECEIVE MESSAGE - COMMAND : ${accessor.command}," +
+                            " USER-ID : $userId," +
+                            " SESSION-ID : $sessionId",
+                    "ACCESS_TOKEN : $accessToken",
+                    "payload: ${message.payload}"
+                )
             }
 
             StompCommand.SUBSCRIBE -> {
