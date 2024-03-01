@@ -7,11 +7,6 @@ import java.time.LocalDateTime
 
 @Repository
 interface ChatMessageRepository : MongoRepository<ChatMessage, String> {
-    fun findAllByRoomIdAndIssuedDateTimeBetween(
-        roomId: String,
-        startDateTime: LocalDateTime,
-        endDateTime: LocalDateTime
-    ): List<ChatMessage>
 
     fun findAllByRoomId(roomId: String): List<ChatMessage>
 
