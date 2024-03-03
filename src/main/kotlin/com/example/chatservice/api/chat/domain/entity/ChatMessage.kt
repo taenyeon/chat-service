@@ -6,7 +6,7 @@ import au.com.console.kassava.kotlinToString
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.MongoId
 
-@Document(collation = "message")
+@Document(collection = "message")
 class ChatMessage() {
 
     @MongoId

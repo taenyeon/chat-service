@@ -20,7 +20,8 @@ class JwtTokenProvider(
 
 
     companion object {
-        const val JWT_SECRET = "Y2hvcHBhLWRvbnQtYml0ZS1tZS1zcHJpbmctYm9vdC1qd3QtdGVzdC1zZWNyZXQta2V5LWNob3BwYS1kb250LWJpdGUtbWUtc3ByaW5nLWJvb3Qtand0LXRlc3Qtc2VjcmV0LWtleQo"
+        const val JWT_SECRET =
+            "Y2hvcHBhLWRvbnQtYml0ZS1tZS1zcHJpbmctYm9vdC1qd3QtdGVzdC1zZWNyZXQta2V5LWNob3BwYS1kb250LWJpdGUtbWUtc3ByaW5nLWJvb3Qtand0LXRlc3Qtc2VjcmV0LWtleQo"
         const val REFRESH_TOKEN_KEY = "refreshToken::"
 
         val ACCESS_TOKEN_EXPIRATION_MS = Duration.ofDays(15).toMillis()
@@ -78,7 +79,7 @@ class JwtTokenProvider(
                 .parseClaimsJws(token)
                 .body.subject.toLong()
         } catch (e: Exception) {
-            throw ResponseException(ResponseCode.INVALID_REQUEST_PARAM)
+            throw ResponseException(ResponseCode.INVALID_REQUEST_PARAM, e)
         }
     }
 
