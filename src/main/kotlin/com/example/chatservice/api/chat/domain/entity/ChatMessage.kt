@@ -3,6 +3,7 @@ package com.example.chatservice.api.chat.domain.entity
 import au.com.console.kassava.kotlinEquals
 import au.com.console.kassava.kotlinHashCode
 import au.com.console.kassava.kotlinToString
+import com.example.chatcenter.api.chat.domain.constant.ChatType
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.MongoId
 
@@ -11,6 +12,7 @@ class ChatMessage() {
 
     @MongoId
     var id: String? = null;
+    var type: ChatType = ChatType.TEXT;
     var roomId: String? = null;
     var memberId: Long? = null;
     var payload: String? = null;

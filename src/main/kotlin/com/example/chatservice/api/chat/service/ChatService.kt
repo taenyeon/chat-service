@@ -18,17 +18,4 @@ class ChatService(
         producer.sendMessage(message)
     }
 
-    fun enter(message: ChatMessage, memberId: Long) {
-        val memberName = memberCacheService.findMember(memberId).name
-        message.memberId = memberId
-        message.payload = "$memberName 님이 채팅방에 참여하였습니다."
-        producer.sendMessage(message)
-    }
-
-    fun out(message: ChatMessage, memberId: Long) {
-        val memberName = memberCacheService.findMember(memberId).name
-        message.memberId = memberId
-        message.payload = "$memberName 님이 채팅방에서 나갔습니다."
-        producer.sendMessage(message)
-    }
 }
