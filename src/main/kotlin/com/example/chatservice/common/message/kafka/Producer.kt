@@ -1,7 +1,6 @@
 package com.example.chatservice.common.message.kafka
 
 import com.example.chatservice.api.chat.domain.entity.ChatMessage
-import com.example.chatservice.api.chat.service.ChatMessageService
 import com.example.chatservice.common.function.logger
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component

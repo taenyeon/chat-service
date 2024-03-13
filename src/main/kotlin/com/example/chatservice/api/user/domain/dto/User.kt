@@ -20,7 +20,8 @@ class User(
     var createdAt: LocalDateTime,
 
     @DateTimeFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    var updatedAt: LocalDateTime
+    var updatedAt: LocalDateTime,
+    var imageUrl: String?,
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

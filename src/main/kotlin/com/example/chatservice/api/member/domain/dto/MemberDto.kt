@@ -6,7 +6,8 @@ class MemberDto(
     var name: String,
     var phoneNumber:String,
     var createdAt: String,
-    var updatedAt: String
+    var updatedAt: String,
+    var imageUrl: String?,
 ) {
 
 }

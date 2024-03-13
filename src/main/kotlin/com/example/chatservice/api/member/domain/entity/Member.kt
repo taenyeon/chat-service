@@ -20,6 +20,7 @@ class Member(
     var password: String?,
     var name: String?,
     var phoneNumber: String?,
+    var imageUrl: String?,
 ) : BaseTimeEntity() {
     override fun toString() = kotlinToString(properties = toStringProperties)
     override fun equals(other: Any?) = kotlinEquals(other = other, properties = equalsAndHashCodeProperties)
